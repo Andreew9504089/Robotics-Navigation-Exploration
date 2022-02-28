@@ -4,7 +4,7 @@ sys.path.append("..")
 import PathTracking.utils as utils
 from PathTracking.controller import Controller
 
-class ControllerPIDBicycle(Controller):
+class ControllerPIDBasic(Controller):
     def __init__(self, kp=0.4, ki=0.0001, kd=0.5):
         self.path = None
         self.kp = kp
@@ -31,6 +31,12 @@ class ControllerPIDBicycle(Controller):
         min_idx, min_dist = utils.search_nearest(self.path, (x,y))
         target = self.path[min_idx]
         
-        # TODO: PID Control for Bicycle Kinematic Model
-        next_delta = 0
-        return next_delta, target
+        # TODO: PID Control for Basic Kinematic Model
+        ang = np.arctan2(self.path[min_idx, 1] - y, self.path[min_idx, 0] - x)
+        ep = min_dist * np.sin(ang)
+        self.acc_ep += dt*ep
+        diff_ep = (ep - self.last_ep) / dt
+        next_w = self.kp*ep + self.ki*self.acc_ep + self.kd*diff_ep
+        self.last_ep = ep
+        return next_w, target
+

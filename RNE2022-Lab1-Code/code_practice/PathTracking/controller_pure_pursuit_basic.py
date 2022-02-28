@@ -4,13 +4,12 @@ sys.path.append("..")
 import PathTracking.utils as utils
 from PathTracking.controller import Controller
 
-class ControllerPurePursuitBicycle(Controller):
-    def __init__(self, kp=1, Lfc=25):
+class ControllerPurePursuitBasic(Controller):
+    def __init__(self, kp=1, Lfc=10):
         self.path = None
         self.kp = kp
         self.Lfc = Lfc
 
-    # State: [x, y, yaw, v, l]
     def feedback(self, info):
         # Check Path
         if self.path is None:
@@ -18,7 +17,7 @@ class ControllerPurePursuitBicycle(Controller):
             return None, None
         
         # Extract State 
-        x, y, yaw, v, l = info["x"], info["y"], info["yaw"], info["v"], info["l"]
+        x, y, yaw, v = info["x"], info["y"], info["yaw"], info["v"]
 
         # Search Front Target
         min_idx, min_dist = utils.search_nearest(self.path, (x,y))
@@ -31,6 +30,8 @@ class ControllerPurePursuitBicycle(Controller):
                 break
         target = self.path[target_idx]
 
-        # TODO: Pure Pursuit Control for Bicycle Kinematic Model
-        next_delta = 0
-        return next_delta, target
+        # TODO: Pure Pursuit Control for Basic Kinematic Model
+        alpha = np.rad2deg(np.arctan2(self.path[min_idx, 1] - y, self.path[min_idx, 0] - x)) - yaw
+        w = (2*v*np.sin(np.deg2rad(alpha))) / Ld
+        next_w = np.rad2deg(w) 
+        return next_w, target
