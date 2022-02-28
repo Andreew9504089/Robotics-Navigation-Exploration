@@ -5,7 +5,7 @@ import PathTracking.utils as utils
 from PathTracking.controller import Controller
 
 class ControllerPurePursuitBicycle(Controller):
-    def __init__(self, kp=1, Lfc=30):
+    def __init__(self, kp=1, Lfc=25):
         self.path = None
         self.kp = kp
         self.Lfc = Lfc
@@ -32,7 +32,7 @@ class ControllerPurePursuitBicycle(Controller):
         target = self.path[target_idx]
 
         # TODO: Pure Pursuit Control for Bicycle Kinematic Model
-        alpha = np.rad2deg(np.arctan2(self.path[min_idx, 1] - y, self.path[min_idx, 0] - x)) - yaw
+        alpha = np.rad2deg(np.arctan2(target[1] - y, target[0] - x)) - yaw
         delta = np.arctan((2*l*np.sin(np.deg2rad(alpha)))/Ld)
         next_delta = np.rad2deg(delta)
         return next_delta, target

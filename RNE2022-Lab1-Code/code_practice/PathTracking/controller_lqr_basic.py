@@ -48,5 +48,6 @@ class ControllerLQRBasic(Controller):
         target[2] = utils.angle_norm(target[2])
         
         # TODO: LQR Control for Basic Kinematic Model
+
         next_w = 0
         return next_w, target
