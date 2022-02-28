@@ -118,8 +118,8 @@ if __name__ == "__main__":
             next_w, target = controller.feedback(info)
             # TODO: v,w to motor control
             r = simulator.wu/2
-            next_lw = 0
-            next_rw = 0
+            next_lw = (next_v - next_w*simulator.l) /r
+            next_rw = (next_v + next_w*simulator.l) /r
             command = ControlState("diff_drive", next_lw, next_rw)
         elif args.simulator == "bicycle":
             # Longitude (P Control)

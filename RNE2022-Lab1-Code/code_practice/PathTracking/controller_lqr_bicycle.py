@@ -48,5 +48,32 @@ class ControllerLQRBicycle(Controller):
         target[2] = utils.angle_norm(target[2])
         
         # TODO: LQR Control for Bicycle Kinematic Model
-        next_delta = 0
+        
+        A = np.zeros((4,4))
+        A[0, 0] = 1.0
+        A[0, 1] = dt
+        A[1, 2] = v
+        A[2, 2] = 1.0
+        A[2, 3] = dt
+
+        B = np.zeros((4,1))
+        B[3, 0] = v / l
+
+        e = min_dist
+        th_e = utils.angle_norm(yaw - target[2])
+
+        X = np.zeros((4, 1))
+        X[0, 0] = e
+        X[1, 0] = -1*(e - self.pe) / dt
+        X[2, 0] = th_e
+        X[3, 0] = -1*(th_e - self.pth_e) / dt
+
+        P = self._solve_DARE(A, B, self.Q, self.R)
+        temp = np.linalg.inv(self.R + B.T @ P @ B)
+        u = -1 * temp @ (B.T @ P @ A) @ X
+
+        next_delta = np.rad2deg(u[0,0])
+
+        self.pe = e
+        self.pth_e = th_e
         return next_delta, target
