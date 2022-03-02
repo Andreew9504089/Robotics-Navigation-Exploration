@@ -64,9 +64,9 @@ class ControllerLQRBasic(Controller):
 
         X = np.zeros((4, 1))
         X[0, 0] = e
-        X[1, 0] = -1*(e - self.pe) / dt
+        X[1, 0] = (e - self.pe) / dt
         X[2, 0] = th_e
-        X[3, 0] = -1*(th_e - self.pth_e) / dt
+        X[3, 0] = (th_e - self.pth_e) / dt
 
         P = self._solve_DARE(A, B, self.Q, self.R)
         u = -1*np.linalg.inv(self.R + B.T @ P @ B) @ B.T @ P @ A @ X 

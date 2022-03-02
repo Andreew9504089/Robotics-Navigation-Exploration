@@ -1,12 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Lab 1",
-    "\\Lab 1\\RNE2022-Lab1-Code",
-    "\\Lab 1\\RNE2022-Lab1-Code\\code_practice",
-    "\\Lab 1\\RNE2022-Lab1-Code\\code_practice\\PathTracking",
-    "\\Lab 1\\RNE2022-Lab1-Code\\code_practice\\Simulation"
+    "\\RNE2022-Lab1-Code",
+    "\\RNE2022-Lab1-Code\\code_practice",
+    "\\RNE2022-Lab1-Code\\code_practice\\PathTracking",
+    "\\RNE2022-Lab1-Code\\code_practice\\Simulation"
   ],
-  "SelectedNode": "\\Lab 1\\RNE2022-Lab1-Code\\code_practice\\PathTracking\\controller_pure_pursuit_bicycle.py",
+  "SelectedNode": "\\RNE2022-Lab1-Code\\code_practice\\Simulation\\kinematic_differential_drive.py",
   "PreviewInSolutionExplorer": false
 }
