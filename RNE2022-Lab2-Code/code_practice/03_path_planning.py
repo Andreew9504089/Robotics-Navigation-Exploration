@@ -45,6 +45,7 @@ if __name__ == "__main__":
 
     cv2.circle(img,(start[0],start[1]),5,(0,0,1),3)
     cv2.circle(img,(goal[0],goal[1]),5,(0,1,0),3)
+
     # Extract Path
     if not args.smooth:
         for i in range(len(path)-1):

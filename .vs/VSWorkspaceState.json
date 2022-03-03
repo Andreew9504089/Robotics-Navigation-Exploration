@@ -1,11 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\RNE2022-Lab1-Code",
-    "\\RNE2022-Lab1-Code\\code_practice",
-    "\\RNE2022-Lab1-Code\\code_practice\\PathTracking",
-    "\\RNE2022-Lab1-Code\\code_practice\\Simulation"
+    "\\RNE2022-Lab2-Code",
+    "\\RNE2022-Lab2-Code\\code_practice",
+    "\\RNE2022-Lab2-Code\\code_practice\\Maps",
+    "\\RNE2022-Lab2-Code\\code_practice\\PathPlanning"
   ],
-  "SelectedNode": "\\RNE2022-Lab1-Code\\code_practice\\Simulation\\kinematic_differential_drive.py",
+  "SelectedNode": "\\RNE2022-Lab2-Code\\code_practice\\PathPlanning\\planner_a_star.py",
   "PreviewInSolutionExplorer": false
 }
