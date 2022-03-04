@@ -59,21 +59,42 @@ class PlannerRRTStar(Planner):
         self.cost = {}
         self.cost[start] = 0
         goal_node = None
+
         for it in range(20000):
             #print("\r", it, len(self.ntree), end="")
             samp_node = self._random_node(goal, self.map.shape)
             near_node = self._nearest_node(samp_node)
             new_node, cost = self._steer(near_node, samp_node, extend_len)
+
             if new_node is not False:
                 self.ntree[new_node] = near_node
                 self.cost[new_node] = cost + self.cost[near_node]
             else:
                 continue
+
             if utils.distance(near_node, goal) < extend_len:
                 goal_node = near_node
                 break
-                
-            # TODO: Re-Parent & Re-Wire
+
+            neighbor = []
+            for item in self.ntree:
+                if utils.distance(item, new_node) <= extend_len and item != new_node:
+                    neighbor.append(item)
+
+            for parent in neighbor:
+                new_cost = self.cost[parent] + utils.distance(parent, new_node)
+                if new_cost < self.cost[new_node]:
+                    self.ntree[new_node] = parent
+                    self.cost[new_node] = new_cost
+
+            for child in neighbor:
+                new_cost = self.cost[new_node] + utils.distance(new_node, child)
+                if new_cost < self.cost[child]:
+                    self.ntree[child] = new_node
+                    self.cost[child] = new_cost
+
+
+
 
             # Draw
             if img is not None:

@@ -6,6 +6,6 @@
     "\\RNE2022-Lab2-Code\\code_practice\\Maps",
     "\\RNE2022-Lab2-Code\\code_practice\\PathPlanning"
   ],
-  "SelectedNode": "\\RNE2022-Lab2-Code\\code_practice\\PathPlanning\\planner_a_star.py",
+  "SelectedNode": "\\RNE2022-Lab2-Code\\code_practice\\PathPlanning\\planner_rrt_star.py",
   "PreviewInSolutionExplorer": false
 }
