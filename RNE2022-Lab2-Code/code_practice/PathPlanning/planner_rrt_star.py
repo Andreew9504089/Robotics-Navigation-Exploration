@@ -93,9 +93,6 @@ class PlannerRRTStar(Planner):
                     self.ntree[child] = new_node
                     self.cost[child] = new_cost
 
-
-
-
             # Draw
             if img is not None:
                 for n in self.ntree:
