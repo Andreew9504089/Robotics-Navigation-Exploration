@@ -5,10 +5,10 @@ sys.path.append("..")
 import PathPlanning.utils as utils
 from PathPlanning.planner import Planner
 
-class PlannerRRTStar(Planner):
+class PlannerRRT(Planner):
     def __init__(self, m, extend_len=20):
         super().__init__(m)
-        self.extend_len = extend_len 
+        self.extend_len = extend_len
 
     def _random_node(self, goal, shape):
         r = np.random.choice(2,1,p=[0.5,0.5])
@@ -49,7 +49,6 @@ class PlannerRRTStar(Planner):
             return False, None
         else:        
             return new_node, utils.distance(new_node, from_node)
-    
 
     def planning(self, start, goal, extend_len=None, img=None):
         if extend_len is None:
@@ -59,43 +58,20 @@ class PlannerRRTStar(Planner):
         self.cost = {}
         self.cost[start] = 0
         goal_node = None
-
         for it in range(20000):
-            #print("\r", it, len(self.ntree), end="")
+            print("\r", it, len(self.ntree), end="")
             samp_node = self._random_node(goal, self.map.shape)
             near_node = self._nearest_node(samp_node)
             new_node, cost = self._steer(near_node, samp_node, extend_len)
-
             if new_node is not False:
                 self.ntree[new_node] = near_node
                 self.cost[new_node] = cost + self.cost[near_node]
             else:
                 continue
-
             if utils.distance(near_node, goal) < extend_len:
                 goal_node = near_node
                 break
-
-            neighbor = []
-            for item in self.ntree:
-                if utils.distance(item, new_node) <= extend_len and item != new_node:
-                    neighbor.append(item)
-
-            for parent in neighbor:
-                if not self._check_collision(parent, new_node):
-                    tmp_cost = self.cost[parent] + utils.distance(parent, new_node)
-                    if  tmp_cost < self.cost[new_node]:
-                        self.ntree[new_node] = parent
-                        self.cost[new_node] = tmp_cost
-
-
-            for child in neighbor:
-                if not self._check_collision(new_node, child):
-                    tmp_cost = self.cost[new_node] + utils.distance(new_node, child)
-                    if tmp_cost < self.cost[child]:
-                        self.ntree[child] = new_node
-                        self.cost[child] = tmp_cost
-
+        
             # Draw
             if img is not None:
                 for n in self.ntree:
@@ -103,11 +79,8 @@ class PlannerRRTStar(Planner):
                         continue
                     node = self.ntree[n]
                     cv2.line(img, (int(n[0]), int(n[1])), (int(node[0]), int(node[1])), (0,1,0), 1)
-                # Near Node
-                img_ = img.copy()
-                cv2.circle(img_,utils.pos_int(new_node),5,(0,0.5,1),3)
                 # Draw Image
-                img_ = cv2.flip(img_,0)
+                img_ = cv2.flip(img,0)
                 cv2.imshow("Path Planning",img_)
                 k = cv2.waitKey(1)
                 if k == 27:
@@ -117,9 +90,9 @@ class PlannerRRTStar(Planner):
         path = []
         n = goal_node
         while(True):
-            if n is None:
-                break
             path.insert(0,n)
+            if self.ntree[n] is None:
+                break
             node = self.ntree[n]
             n = self.ntree[n] 
         path.append(goal)
