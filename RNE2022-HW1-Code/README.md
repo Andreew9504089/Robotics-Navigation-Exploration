@@ -1,5 +1,7 @@
 # Homework 1 for Robotics Navigation and Exploration
 
+## Run
+> python navigation.py -s -c -p -m
 
 ## TODO
 
