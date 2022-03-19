@@ -14,7 +14,7 @@
 ### Basic Model
 - ⚠️ LQR control <br>
 > *Need to fix fast oscillation and will somtimes go off the track.*<br>
-- ⚠️ PID control <br>
+- ☑️ PID control <br>
 > *Not following the track in hw1 but act normally in lab1.*<br>
 - ☑️ Pure Pursuit control <br>
 - ☑️ Collision solution <br>
@@ -23,7 +23,7 @@
 - ⚠️ LQR control<br>
 > 1. *Oscillation and went off the track at some point.*<br>
 > 2. *Not following the track really well*<br>
-- ⚠️ PID control<br>
+- ☑️ PID control<br>
 > *Went off the track and stuck if the goal point is behind the vehicle.*<br>
 - ☑️ Stanley control<br>
 - ☑️ Pure Pursuit
@@ -32,6 +32,6 @@
 ### Differential Model
 😵 weird behaviors, might have problems in the transform from (v,w) to (lw,rw).<br>
 - - [ ] LQR control <br>
-- - [ ] PID control <br>
+- ☑️ PID control <br>
 - ☑️ Pure Pursuit control <br>
 - ☑️ Collision solution <br>
