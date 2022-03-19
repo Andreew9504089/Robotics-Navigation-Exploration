@@ -31,7 +31,7 @@
 
 ### Differential Model
 😵 Drive very slow.<br>
-- - [ ] LQR control <br>
+- ☑️ LQR control <br>
 - ☑️ PID control <br>
 - ☑️ Pure Pursuit control <br>
 - ☑️ Collision solution <br>
