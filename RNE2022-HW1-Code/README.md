@@ -1,12 +1,14 @@
 # Homework 1 for Robotics Navigation and Exploration
 
+## Run
+> python navigation.py -s -c -p -m
 
 ## TODO
 
 ### Path Planning
 - ☑️  A* planner
 > *The planner couldn't find the exact goal, therefore an error of 20 is permitted.*
-- - [ ] RRT* planner
+- ☑️ RRT* planner
 > *The planner behave like rrt, bugs still need to be fixed.*
 
 ### Basic Model
@@ -29,7 +31,7 @@
 
 ### Differential Model
 😵 weird behaviors, might have problems in the transform from (v,w) to (lw,rw).<br>
-- - [ ] LQR control
-- - [ ] PID control
-- - [ ] Stanley control
-- - [ ] Collision solution
+- - [ ] LQR control <br>
+- - [ ] PID control <br>
+- ☑️ Pure Pursuit control <br>
+- ☑️ Collision solution <br>
