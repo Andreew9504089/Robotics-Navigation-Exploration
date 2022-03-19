@@ -68,7 +68,7 @@ def navigation(args, simulator, controller, planner, start_pose=(100,200,0)):
             end_dist = np.hypot(path[-1,0]-simulator.state.x, path[-1,1]-simulator.state.y)
             if args.simulator == "basic":
                 if end_dist > 10:
-                    next_v = 5
+                    next_v = 10
                 else:
                     next_v = 0
                 # Lateral
@@ -80,7 +80,6 @@ def navigation(args, simulator, controller, planner, start_pose=(100,200,0)):
                     "dt":simulator.dt
                 }
                 next_w, target = controller.feedback(info)
-
 
                 command = ControlState("basic", next_v, next_w)
 
@@ -99,10 +98,11 @@ def navigation(args, simulator, controller, planner, start_pose=(100,200,0)):
                     "dt":simulator.dt
                 }
                 next_w, target = controller.feedback(info)
+
                 # TODO: v,w to motor control
                 r = simulator.wu/2
-                next_lw = next_v/r - next_w * simulator.l/r
-                next_rw = next_v/r + next_w * simulator.l/r
+                next_lw = next_v*r - next_w * simulator.l/r
+                next_rw = next_v*r + next_w * simulator.l/r
                 command = ControlState("diff_drive", next_lw, next_rw)
 
             elif args.simulator == "bicycle":
@@ -139,25 +139,28 @@ def navigation(args, simulator, controller, planner, start_pose=(100,200,0)):
             # TODO: Collision Handling
 
             if args.simulator == "basic":
-                command = ControlState("basic", -5, 0)
+                command = ControlState("basic", -10, 0)
 
             elif args.simulator == "bicycle":
-                target_v = -5
+                target_v = -10
                 next_a = (target_v - simulator.state.v)*0.5
                 next_delta = 0
                 command = ControlState("bicycle", next_a, next_delta)
+                print(collision_count)
 
             elif args.simulator == "diff_drive":
                 next_v = -5
                 next_w = 0
                 r = simulator.wu/2
-                next_lw = next_v / r - next_w * simulator.l/r
-                next_rw = next_v / r + np.deg2rad(next_w) * simulator.l/r
+                next_lw = next_v * r - next_w * simulator.l/r
+                next_rw = next_v * r + next_w * simulator.l/r
                 command = ControlState("diff_drive", next_lw, next_rw)
 
-            for t in range(50):
-                _, info = simulator.step(command)
-            collision_count = 0
+            _, info = simulator.step(command)
+            collision_count += 1
+
+            if collision_count >= 15:
+                collision_count = 0
             
         
         # Render Path

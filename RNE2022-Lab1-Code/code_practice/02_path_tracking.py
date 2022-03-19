@@ -77,7 +77,7 @@ if __name__ == "__main__":
     
     # Initialize Car
     simulator = Simulator()
-    start = (50,300,0)
+    start = (0,300,0)
     simulator.init_pose(start)
     controller = Controller()
     controller.set_path(path)
@@ -116,10 +116,11 @@ if __name__ == "__main__":
                 "dt":simulator.dt
             }
             next_w, target = controller.feedback(info)
+
             # TODO: v,w to motor control
             r = simulator.wu/2
-            next_lw = next_v - next_w * simulator.l
-            next_rw = next_v + next_w * simulator.l
+            next_lw = next_v*r - next_w * simulator.l/r
+            next_rw = next_v*r + next_w * simulator.l/r
 
             command = ControlState("diff_drive", next_lw, next_rw)
         elif args.simulator == "bicycle":
@@ -140,6 +141,7 @@ if __name__ == "__main__":
                 "dt":simulator.dt
             }
             next_delta, target = controller.feedback(info)
+            print(next_delta)
             command = ControlState("bicycle", next_a, next_delta)
  
         # Update State & Render

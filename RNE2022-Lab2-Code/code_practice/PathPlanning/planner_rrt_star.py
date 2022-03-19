@@ -72,7 +72,7 @@ class PlannerRRTStar(Planner):
             else:
                 continue
 
-            if utils.distance(near_node, goal) < extend_len:
+            if utils.distance(near_node, goal) <= extend_len:
                 goal_node = near_node
                 break
 

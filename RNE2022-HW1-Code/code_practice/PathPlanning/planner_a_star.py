@@ -32,7 +32,7 @@ class PlannerAStar(Planner):
         self.h[start] = utils.distance(start, goal)
 
 
-        while( len(self.queue) > 0):
+        while(len(self.queue) > 0):
             # TODO: A Star Algorithm
 
             # find the current node from the nodes that has been visited with the lowest cost
