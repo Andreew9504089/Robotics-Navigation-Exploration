@@ -8,7 +8,7 @@
 ### Path Planning
 - ☑️  A* planner
 > *The planner couldn't find the exact goal, therefore an error of 20 is permitted.*
-- - [ ] RRT* planner
+- ☑️ RRT* planner
 > *The planner behave like rrt, bugs still need to be fixed.*
 
 ### Basic Model
