@@ -101,8 +101,8 @@ def navigation(args, simulator, controller, planner, start_pose=(100,200,0)):
 
                 # TODO: v,w to motor control
                 r = simulator.wu/2
-                next_lw = next_v - next_w * simulator.l
-                next_rw = next_v + next_w * simulator.l
+                next_lw = next_v*r - next_w * simulator.l
+                next_rw = next_v*r + next_w * simulator.l
                 command = ControlState("diff_drive", next_lw, next_rw)
 
             elif args.simulator == "bicycle":
