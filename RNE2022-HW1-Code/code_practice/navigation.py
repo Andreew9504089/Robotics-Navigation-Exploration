@@ -101,8 +101,8 @@ def navigation(args, simulator, controller, planner, start_pose=(100,200,0)):
 
                 # TODO: v,w to motor control
                 r = simulator.wu/2
-                next_lw = next_v*r - next_w * simulator.l/r
-                next_rw = next_v*r + next_w * simulator.l/r
+                next_lw = next_v - next_w * simulator.l
+                next_rw = next_v + next_w * simulator.l
                 command = ControlState("diff_drive", next_lw, next_rw)
 
             elif args.simulator == "bicycle":
@@ -139,28 +139,30 @@ def navigation(args, simulator, controller, planner, start_pose=(100,200,0)):
             # TODO: Collision Handling
 
             if args.simulator == "basic":
-                command = ControlState("basic", -10, 0)
+                command = ControlState("basic", -5, 0)
 
             elif args.simulator == "bicycle":
+                
+                next_delta = -20
                 target_v = -10
+
                 next_a = (target_v - simulator.state.v)*0.5
-                next_delta = 0
                 command = ControlState("bicycle", next_a, next_delta)
-                print(collision_count)
+                
 
             elif args.simulator == "diff_drive":
                 next_v = -5
                 next_w = 0
                 r = simulator.wu/2
-                next_lw = next_v * r - next_w * simulator.l/r
-                next_rw = next_v * r + next_w * simulator.l/r
+                next_lw = next_v - next_w * simulator.l
+                next_rw = next_v + next_w * simulator.l
                 command = ControlState("diff_drive", next_lw, next_rw)
 
             _, info = simulator.step(command)
             collision_count += 1
 
-            if collision_count >= 15:
-                collision_count = 0
+        if collision_count >= 20:
+            collision_count = 0
             
         
         # Render Path
