@@ -31,7 +31,7 @@
 
 ### Differential Model
 😵 weird behaviors, might have problems in the transform from (v,w) to (lw,rw).<br>
-- - [ ] LQR control
-- - [ ] PID control
-- - [ ] Stanley control
-- - [ ] Collision solution
+- - [ ] LQR control <br>
+- - [ ] PID control <br>
+- ☑️ Pure Pursuit control <br>
+- ☑️ Collision solution <br>
